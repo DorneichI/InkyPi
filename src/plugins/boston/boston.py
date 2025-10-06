@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 
 logger = logging.getLogger(__name__)
 
-class MBTA(BasePlugin):
+class Boston(BasePlugin):
     FEED_URL = "https://cdn.mbta.com/realtime/TripUpdates.pb"
     LOCATION = "BOSTON,MA"
 
@@ -52,7 +52,7 @@ class MBTA(BasePlugin):
             "weather_info": weather_info
         }
 
-        return self.render_image(dimensions, "mbta.html", "mbta.css", template_params)
+        return self.render_image(dimensions, "boston.html", "boston.css", template_params)
 
     def _get_trip_updates(self):
         response = requests.get(self.FEED_URL)
