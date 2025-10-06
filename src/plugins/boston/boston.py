@@ -1,5 +1,4 @@
 from plugins.base_plugin.base_plugin import BasePlugin
-from PIL import Image, ImageDraw, ImageFont
 import logging
 import requests
 from google.transit import gtfs_realtime_pb2
