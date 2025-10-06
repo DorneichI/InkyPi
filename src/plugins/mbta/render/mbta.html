@@ -1,17 +1,38 @@
 {% extends "plugin.html" %}
 
 {% block content %}
-<div class="stations">
-    {% for station in stations %}
-    <div class="station">
-        <img class="icon" src="{{ station.icon }}" alt="Icon">
-        <span class="station-name">{{ station.name }}</span>
-        <div class="departures">
-            {% for departure in station.departures %}
-            <span class="departure-time">{{ departure }}</span>
-            {% endfor %}
+<div style="width: 100%;">
+    <div class="weather-info">
+        <div>
+            <h3>Chance of Rain</h3>
+            <p>{{ weather_info.rain }}%</p>
+        </div>
+        <div>
+            <h3>Temperature</h3>
+            <p>{{ weather_info.current_temp }}°C</p>
+        </div>
+        <div>
+            <h3>Max Today</h3>
+            <p>{{ weather_info.max_temp }}°C</p>
+        </div>
+        <div>
+            <h3>Min Today</h3>
+            <p>{{ weather_info.min_temp }}°C</p>
         </div>
     </div>
-    {% endfor %}
+
+    <div class="stations">
+        {% for station in stations %}
+        <div class="station">
+            <img class="icon" src="{{ station.icon }}" alt="Icon">
+            <span class="station-name">{{ station.name }}</span>
+            <div class="departures">
+                {% for departure in station.departures %}
+                <span class="departure-time">{{ departure }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

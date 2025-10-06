@@ -50,3 +50,14 @@ body {
 .departure-time {
     margin-right: 10px;
 }
+.weather-info {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1em;
+    margin: 1em 0;
+    text-align: center;
+    width: 100%;
+}
+.weather-info div {
+    text-align: center;
+}

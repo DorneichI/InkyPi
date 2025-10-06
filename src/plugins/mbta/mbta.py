@@ -4,15 +4,18 @@ import logging
 import requests
 from google.transit import gtfs_realtime_pb2
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 import os
-from html2image import Html2Image
+from dotenv import load_dotenv
 
 logger = logging.getLogger(__name__)
 
 class MBTA(BasePlugin):
     FEED_URL = "https://cdn.mbta.com/realtime/TripUpdates.pb"
+    LOCATION = "BOSTON,MA"
 
+    load_dotenv()
+    API_KEY = os.getenv("WEATHER_API_KEY")
 
     def generate_image(self, settings, device_config):
         departures = self._get_next_departures()
@@ -39,9 +42,14 @@ class MBTA(BasePlugin):
         if device_config.get_config("orientation") == "vertical":
             dimensions = dimensions[::-1]
 
+        json_weather = self._get_weatherapi_forecast()
+
+        weather_info = self._parse_weather(json_weather)
+
         template_params = {
             "stations": stations,
-            "plugin_settings": settings
+            "plugin_settings": settings,
+            "weather_info": weather_info
         }
 
         return self.render_image(dimensions, "mbta.html", "mbta.css", template_params)
@@ -84,6 +92,39 @@ class MBTA(BasePlugin):
                             departures_times[stop_id].append(datetime.fromtimestamp(dep))
 
         return departures_times
+    
+    def _get_weatherapi_forecast(self):
+        url = "http://api.weatherapi.com/v1/forecast.json"
+        params = {
+            "key": self.API_KEY,
+            "q": self.LOCATION,
+            "days": 2,
+            "aqi": "no",
+            "alerts": "no"
+        }
+        resp = requests.get(url, params=params)
+        resp.raise_for_status()
+        return resp.json()
+    
+    def _parse_weather(self, json_data):
+        forecast = json_data["forecast"]
+
+        today = forecast["forecastday"][0]
+
+        rain = today['day']['daily_chance_of_rain']
+        current_hour = datetime.now(timezone.utc).hour
+        current_temp = today["hour"][current_hour]["temp_c"]
+        logger.info(f"current_temp {current_temp}")
+        max_temp = today["day"]["maxtemp_c"]
+        min_temp = today["day"]["mintemp_c"]
+
+        return {
+            "rain": rain,
+            "current_temp": current_temp,
+            "max_temp": max_temp,
+            "min_temp": min_temp,
+        }
+
 
 
 
