@@ -1,0 +1,41 @@
+{
+    "stops": [
+        {
+            "name": "Boston College",
+            "id": 70196,
+            "icon": "Icon-green-line-b-default.svg"
+        },{
+            "name": "Oak Grove",
+            "id": 70021,
+            "icon": "Icon-orange-line-default.svg"
+        },{
+            "name": "Cleveland Circle",
+            "id": 70197,
+            "icon": "Icon-green-line-c-default.svg"
+        },{
+            "name": "Forest Hills",
+            "id": 70020,
+            "icon": "Icon-orange-line-default.svg"
+        },{
+            "name": "Riverside",
+            "id": 70198,
+            "icon": "Icon-green-line-d-default.svg"
+        },{
+            "name": "Alewife",
+            "id": 70076,
+            "icon": "Icon-red-line-default.svg"
+        },{
+            "name": "Heath Street",
+            "id": 70199,
+            "icon": "Icon-green-line-e-default.svg"
+        },{
+            "name": "Ashmont/Braintree",
+            "id": 70075,
+            "icon": "Icon-red-line-default.svg"
+        },{
+            "name": "North",
+            "id": 70200,
+            "icon": "Icon-green-line-default.svg"
+        }
+    ]
+}
